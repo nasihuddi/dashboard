@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Dashboard with Chart</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tambahkan CDN untuk Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-edit"></i> Post Blog</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Member</a></li>
+                <li><a href="#"><i class="fas fa-comments"></i> Comments</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                <li><a href="#"><i class="fas fa-comments"></i> Forum</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Blog Dashboard</h1>
+            
+            <!-- Blog Post -->
+            <div class="blog-post">
+                <h2>Judul Blog 1</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <div class="blog-info">
+                    <div class="views">
+                        <p><i class="fas fa-eye"></i> <strong>Views:</strong> 1,234</p>
+                    </div>
+                    <div class="comments">
+                        <p><i class="fas fa-comments"></i> <strong>Komentar:</strong> 56</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post -->
+            <div class="blog-post">
+                <h2>Judul Blog 2</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <div class="blog-info">
+                    <div class="views">
+                        <p><i class="fas fa-eye"></i> <strong>Views:</strong> 987</p>
+                    </div>
+                    <div class="comments">
+                        <p><i class="fas fa-comments"></i> <strong>Komentar:</strong> 78</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <h2>Statistik Blog per Bulan</h2>
+            <!-- Grafik Garis -->
+            <canvas id="blogLineChart" width="400" height="200"></canvas>
+            <!-- Grafik Batang -->
+            <canvas id="blogBarChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <!-- Script untuk menampilkan grafik -->
+    <script>
+        // Data untuk grafik garis (line chart)
+        const labels = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni'];
+        const lineData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Views Blog 1',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    data: [1234, 1543, 1350, 1200, 1400, 1700],
+                },
+                {
+                    label: 'Views Blog 2',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    data: [987, 1100, 950, 1150, 1000, 900],
+                },
+                {
+                    label: 'Komentar Blog 1',
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    data: [56, 65, 70, 55, 60, 75],
+                },
+                {
+                    label: 'Komentar Blog 2',
+                    backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    data: [78, 85, 60, 75, 80, 90],
+                }
+            ]
+        };
+
+        // Konfigurasi grafik garis
+        const lineConfig = {
+            type: 'line',
+            data: lineData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Views dan Komentar per Bulan'
+                    }
+                }
+            }
+        };
+
+        // Inisialisasi grafik garis
+        const blogLineChart = new Chart(
+            document.getElementById('blogLineChart'),
+            lineConfig
+        );
+
+        // Data untuk grafik batang (bar chart)
+        const barData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Views Blog 1',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    data: [1234, 1543, 1350, 1200, 1400, 1700],
+                },
+                {
+                    label: 'Views Blog 2',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    data: [987, 1100, 950, 1150, 1000, 900],
+                }
+            ]
+        };
+
+        // Konfigurasi grafik batang
+        const barConfig = {
+            type: 'bar',
+            data: barData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Views Blog per Bulan'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Inisialisasi grafik batang
+        const blogBarChart = new Chart(
+            document.getElementById('blogBarChart'),
+            barConfig
+        );
+    </script>
+</body>
+</html>
